@@ -254,9 +254,14 @@ COLORS = {
 
 
 # 데이터 로드
+import os
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/gaming_data.csv")
+    # 현재 파일 위치 기준으로 경로 설정 (Streamlit Cloud 호환)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(current_dir, "data", "gaming_data.csv")
+    df = pd.read_csv(csv_path)
     df.columns = df.columns.str.strip()
     return df
 
